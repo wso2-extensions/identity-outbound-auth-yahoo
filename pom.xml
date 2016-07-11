@@ -255,12 +255,14 @@
 
     <properties>
         <!--Carbon framework version-->
-        <carbon.identity.package.import.version.range>[5.0.0, 6.0.0)</carbon.identity.package.import.version.range>
+        <carbon.identity.framework.import.version.range>[5.0.0, 6.0.0)</carbon.identity.framework.import.version.range>
         <identity.framework.version>5.2.0</identity.framework.version>
         <identity.outbound.auth.yahoo>${project.version}</identity.outbound.auth.yahoo>
 
         <identity.outbound.auth.oidc.version>5.1.1</identity.outbound.auth.oidc.version>
         <identity.outbound.auth.openid.version>5.1.0</identity.outbound.auth.openid.version>
+        <identity.outbound.auth.oidc.import.version.range>[5.0.0, 6.0.0)</identity.outbound.auth.oidc.import.version.range>
+        <identity.outbound.auth.openid.import.version.range>[5.0.0, 6.0.0)</identity.outbound.auth.openid.import.version.range>
 
         <!-- Carbon kernel version -->
         <carbon.kernel.registry.imp.pkg.version>[1.0.1, 2.0.0)</carbon.kernel.registry.imp.pkg.version>
