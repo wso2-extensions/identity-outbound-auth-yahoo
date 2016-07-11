@@ -257,7 +257,7 @@
         <!--Carbon framework version-->
         <carbon.identity.framework.import.version.range>[5.0.0, 6.0.0)</carbon.identity.framework.import.version.range>
         <identity.framework.version>5.2.0</identity.framework.version>
-        <identity.outbound.auth.yahoo>${project.version}</identity.outbound.auth.yahoo>
+        <identity.outbound.auth.yahoo.export.version>${project.version}</identity.outbound.auth.yahoo.export.version>
 
         <identity.outbound.auth.oidc.version>5.1.1</identity.outbound.auth.oidc.version>
         <identity.outbound.auth.openid.version>5.1.1</identity.outbound.auth.openid.version>
