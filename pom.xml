@@ -260,7 +260,7 @@
         <identity.outbound.auth.yahoo>${project.version}</identity.outbound.auth.yahoo>
 
         <identity.outbound.auth.oidc.version>5.1.1</identity.outbound.auth.oidc.version>
-        <identity.outbound.auth.openid.version>5.1.0</identity.outbound.auth.openid.version>
+        <identity.outbound.auth.openid.version>5.1.1</identity.outbound.auth.openid.version>
         <identity.outbound.auth.oidc.import.version.range>[5.0.0, 6.0.0)</identity.outbound.auth.oidc.import.version.range>
         <identity.outbound.auth.openid.import.version.range>[5.0.0, 6.0.0)</identity.outbound.auth.openid.import.version.range>
 
