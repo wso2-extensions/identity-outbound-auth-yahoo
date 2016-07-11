@@ -101,7 +101,7 @@
                         <Export-Package>
                             !org.wso2.carbon.identity.application.authenticator.yahoo.internal,
                             org.wso2.carbon.identity.application.authenticator.yahoo*;
-                            version="${carbon.identity.package.export.version}"
+                            version="${identity.outbound.auth.yahoo}"
                         </Export-Package>
                     </instructions>
                 </configuration>
