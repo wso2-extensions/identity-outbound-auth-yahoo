@@ -197,11 +197,6 @@
         <dependencies>
             <dependency>
                 <groupId>org.wso2.carbon.identity</groupId>
-                <artifactId>org.wso2.carbon.identity.application.authenticator.openid</artifactId>
-                <version>${identity.outbound.auth.openid.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wso2.carbon.identity</groupId>
                 <artifactId>org.wso2.carbon.identity.application.authenticator.oidc</artifactId>
                 <version>${identity.outbound.auth.oidc.version}</version>
             </dependency>
@@ -260,9 +255,7 @@
         <identity.outbound.auth.yahoo.export.version>${project.version}</identity.outbound.auth.yahoo.export.version>
 
         <identity.outbound.auth.oidc.version>5.1.1</identity.outbound.auth.oidc.version>
-        <identity.outbound.auth.openid.version>5.1.1</identity.outbound.auth.openid.version>
         <identity.outbound.auth.oidc.import.version.range>[5.0.0, 6.0.0)</identity.outbound.auth.oidc.import.version.range>
-        <identity.outbound.auth.openid.import.version.range>[5.0.0, 6.0.0)</identity.outbound.auth.openid.import.version.range>
 
         <!-- Carbon kernel version -->
         <carbon.kernel.registry.imp.pkg.version>[1.0.1, 2.0.0)</carbon.kernel.registry.imp.pkg.version>
