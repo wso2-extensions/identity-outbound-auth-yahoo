@@ -22,7 +22,7 @@
         <groupId>org.wso2.carbon.identity.outbound.auth.yahoo</groupId>
         <artifactId>identity-outbound-auth-yahoo</artifactId>
         <relativePath>../../pom.xml</relativePath>
-        <version>5.1.4-SNAPSHOT</version>
+        <version>5.1.4</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
