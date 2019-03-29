@@ -152,8 +152,10 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
      */
     @Override
     protected String getScope(String scope, Map<String, String> authenticatorProperties) {
-
-        return YahooOAuth2AuthenticatorConstants.YAHOO_SCOPE;
+        if (StringUtils.isEmpty(scope)) {
+            return YahooOAuth2AuthenticatorConstants.YAHOO_SCOPE;
+        }
+        return scope;
     }
 
     /**
