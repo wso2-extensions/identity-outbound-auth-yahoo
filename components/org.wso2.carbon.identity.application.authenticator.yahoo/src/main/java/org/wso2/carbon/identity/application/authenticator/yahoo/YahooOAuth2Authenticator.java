@@ -41,7 +41,7 @@ import java.util.Map;
  */
 public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
 
-    private static Log log = LogFactory.getLog(YahooOAuth2Authenticator.class);
+    private static final Log log = LogFactory.getLog(YahooOAuth2Authenticator.class);
 
     private static final long serialVersionUID = -4290245763061524219L;
 
