@@ -21,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.oltu.oauth2.client.response.OAuthClientResponse;
 import org.apache.oltu.oauth2.common.utils.JSONUtils;
-import org.wso2.carbon.identity.application.authentication.framework.context.AuthenticationContext;
 import org.wso2.carbon.identity.application.authenticator.oidc.OIDCAuthenticatorConstants;
 import org.wso2.carbon.identity.application.authenticator.oidc.OpenIDConnectAuthenticator;
 import org.wso2.carbon.identity.application.common.model.ClaimMapping;
@@ -47,7 +46,6 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
 
     private String oAuthEndpoint;
     private String tokenEndpoint;
-    private String userInfoURL;
 
     /**
      * Initialize the Yahoo OAuth endpoint url.
@@ -72,19 +70,6 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
 
         if (tokenEndpoint == null) {
             tokenEndpoint = IdentityApplicationConstants.YAHOO_TOKEN_URL;
-        }
-    }
-
-    /**
-     * Initialize the Yahoo user info url.
-     */
-    private void initUserInfoURL() {
-
-        userInfoURL = getAuthenticatorConfig().getParameterMap()
-                .get(YahooOAuth2AuthenticatorConstants.YAHOO_USERINFO_ENDPOINT);
-
-        if (userInfoURL == null) {
-            userInfoURL = IdentityApplicationConstants.YAHOO_USERINFO_URL;
         }
     }
 
@@ -131,19 +116,6 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
     }
 
     /**
-     * Get the user info endpoint url.
-     *
-     * @return User info endpoint url.
-     */
-    private String getUserInfoURL() {
-
-        if (userInfoURL == null) {
-            initUserInfoURL();
-        }
-        return userInfoURL;
-    }
-
-    /**
      * Get OAuth2 Scope
      *
      * @param scope                   Scope
@@ -159,18 +131,6 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
     }
 
     /**
-     * Get Authenticated User
-     *
-     * @param token OAuth client response.
-     * @return GUID of the authenticated user.
-     */
-    @Override
-    protected String getAuthenticateUser(AuthenticationContext context, Map<String, Object> jsonObject, OAuthClientResponse token) {
-
-        return token.getParam(YahooOAuth2AuthenticatorConstants.USER_GUID);
-    }
-
-    /**
      * Get the user info endpoint.
      *
      * @param token OAuth client response.
@@ -179,8 +139,14 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
     @Override
     protected String getUserInfoEndpoint(OAuthClientResponse token, Map<String, String> authenticatorProperties) {
 
-        String userGUID = token.getParam(YahooOAuth2AuthenticatorConstants.USER_GUID);
-        return getUserInfoURL() + userGUID + YahooOAuth2AuthenticatorConstants.YAHOO_USER_DETAILS_JSON;
+        String userInfoURL = getAuthenticatorConfig().getParameterMap()
+                .get(YahooOAuth2AuthenticatorConstants.YAHOO_USERINFO_ENDPOINT);
+
+        if (StringUtils.isBlank(userInfoURL)) {
+            userInfoURL = IdentityApplicationConstants.YAHOO_OPENID_CONNECT_USERINFO_URL;
+        }
+
+        return userInfoURL;
     }
 
     /**
@@ -242,33 +208,26 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
             }
 
             Map<String, Object> jsonObject = JSONUtils.parseJSON(json);
-            Map<String, Object> profile = null;
 
-            if (!jsonObject.isEmpty()) {
-
-                // Extract the inner profile JSON object.
-                profile = JSONUtils.parseJSON(jsonObject.entrySet().iterator().next().getValue().toString());
-            }
-
-            if (profile == null) {
+            if (jsonObject.isEmpty()) {
                 if (log.isDebugEnabled()) {
-                    log.debug("Invalid user profile object. Proceeding without user claims");
+                    log.debug("Invalid user profile object. Proceeding without user claims.");
                 }
                 return claims;
             }
 
-            for (Map.Entry<String, Object> data : profile.entrySet()) {
+            for (Map.Entry<String, Object> data : jsonObject.entrySet()) {
                 String key = data.getKey();
-                claims.put(ClaimMapping.build(key, key, null, false), profile.get(key).toString());
+                claims.put(ClaimMapping.build(key, key, null, false), jsonObject.get(key).toString());
 
                 if (log.isDebugEnabled()
                         && IdentityUtil.isTokenLoggable(IdentityConstants.IdentityTokens.USER_CLAIMS)) {
                     log.debug("Adding claims from end-point data mapping : " + key + " - " +
-                            profile.get(key).toString());
+                            jsonObject.get(key).toString());
                 }
             }
         } catch (IOException e) {
-            log.error("Communication error occurred while accessing user info endpoint", e);
+            log.error("Communication error occurred while accessing user info endpoint.", e);
         }
         return claims;
     }
