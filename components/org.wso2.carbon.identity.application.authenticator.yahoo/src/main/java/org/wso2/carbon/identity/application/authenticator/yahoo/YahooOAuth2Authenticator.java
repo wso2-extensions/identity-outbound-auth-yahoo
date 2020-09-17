@@ -143,7 +143,7 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
                 .get(YahooOAuth2AuthenticatorConstants.YAHOO_USERINFO_ENDPOINT);
 
         if (StringUtils.isBlank(userInfoURL)) {
-            userInfoURL = IdentityApplicationConstants.YAHOO_OPENID_CONNECT_USERINFO_URL;
+            userInfoURL = IdentityApplicationConstants.YAHOO_OIDC_USERINFO_URL;
         }
 
         return userInfoURL;
