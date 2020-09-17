@@ -21,6 +21,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.oltu.oauth2.client.response.OAuthClientResponse;
 import org.apache.oltu.oauth2.common.utils.JSONUtils;
+import org.wso2.carbon.identity.application.authentication.framework.context.AuthenticationContext;
 import org.wso2.carbon.identity.application.authenticator.oidc.OIDCAuthenticatorConstants;
 import org.wso2.carbon.identity.application.authenticator.oidc.OpenIDConnectAuthenticator;
 import org.wso2.carbon.identity.application.common.model.ClaimMapping;
@@ -128,6 +129,21 @@ public class YahooOAuth2Authenticator extends OpenIDConnectAuthenticator {
             return YahooOAuth2AuthenticatorConstants.YAHOO_SCOPE;
         }
         return scope;
+    }
+
+    /**
+     * Get authenticated user.
+     *
+     * @param context    Authentication context.
+     * @param jsonObject Claims map.
+     * @param token      OAuth client response.
+     * @return GUID of the authenticated user.
+     */
+    @Override
+    protected String getAuthenticateUser(AuthenticationContext context, Map<String, Object> jsonObject,
+                                         OAuthClientResponse token) {
+
+        return super.getAuthenticateUser(context, jsonObject, token);
     }
 
     /**
